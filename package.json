@@ -1,0 +1,26 @@
+{
+  "name": "iquestions",
+  "version": "1.0.0",
+  "description": "Collections of Interview Questions for Developers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanapotski/iQuestions.git"
+  },
+  "author": "Hannah Zulueta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanapotski/iQuestions/issues"
+  },
+  "homepage": "https://github.com/hanapotski/iQuestions#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.10"
+  }
+}
