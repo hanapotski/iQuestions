@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>iQuestions</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type="text/css" href="main.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <h1>Interview Questions</h1>
+    <form action="/questions" method="POST">
+      <div class="center">
+        <textarea class="center" name="question" id="currentQuestion" placeholder="Type a question" required></textarea>
+        <div>
+          <button type="submit" id="add">Add</button>
+          <button type="button" id="update" class="hidden">Update</button>
+        </div>
+      </div>
+    </form>
+
+    <ul class="questions">
+      <% for(let q of questions){ %>
+        <li data-oid="<%= q._id %>">
+          <span class="question">
+            <%= q.question %>
+          </span>
+          <button type="button" class="delete center">Delete</button>
+        </li>
+        <% } %>
+    </ul>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
