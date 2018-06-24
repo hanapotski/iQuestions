@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const { MongClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
+const dotenv = require('dotenv');
 
 dotenv.config();
 app.use(bodyParser.json());
