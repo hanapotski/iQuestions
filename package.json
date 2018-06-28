@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "heroku-post-build": "npm run start"
+    "heroku-post-build": "npm run build"
   },
   "repository": {
     "type": "git",
