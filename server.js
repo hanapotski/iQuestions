@@ -43,6 +43,9 @@ app.delete('/questions', (req, res) => {
     .then(() => res.sendStatus(200));
 });
 
+// catch favicon error
+app.get('/favicon.ico', (req, res) => res.status(204));
+
 MongoClient.connect(
   process.env.DB_URL,
   (err, client) => {
