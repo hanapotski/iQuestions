@@ -162,6 +162,13 @@ button {
   border-radius: 15px;
 }
 
+.editQ {
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  color: rgb(221, 61, 61);
+}
+
 .delete {
   color: rgb(221, 61, 61);
   display: block;
@@ -170,7 +177,7 @@ button {
 h1 {
   text-align: center;
   font-size: 2em;
-  margin: 20px 0 50px 0;
+  margin: 20px 0 10px 0;
 }
 
 ul {
