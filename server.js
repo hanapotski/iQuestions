@@ -21,6 +21,15 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/questions/edit', (req, res) => {
+  db.collection(process.env.DB_COLLECTION)
+    .find()
+    .toArray((err, result) => {
+      if (err) return console.log(err);
+      res.render('edit.ejs', { questions: result });
+    });
+});
+
 app.post('/questions', (req, res) => {
   db.collection(process.env.DB_COLLECTION).insertOne(
     req.body,
