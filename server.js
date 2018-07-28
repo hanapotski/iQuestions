@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     .find()
     .toArray((err, result) => {
       if (err) return console.log(err);
-      res.render('index.ejs', { questions: result });
+      res.render('index', { questions: result });
     });
 });
 
@@ -26,7 +26,7 @@ app.get('/questions/edit', (req, res) => {
     .find()
     .toArray((err, result) => {
       if (err) return console.log(err);
-      res.render('edit.ejs', { questions: result });
+      res.render('edit', { questions: result });
     });
 });
 
