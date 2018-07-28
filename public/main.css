@@ -197,6 +197,12 @@ li {
 }
 
 @media screen and (min-width: 992px) {
+  .container {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   ul {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 25px;
