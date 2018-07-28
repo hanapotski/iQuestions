@@ -57,6 +57,7 @@ app.get('/favicon.ico', (req, res) => res.status(204));
 
 MongoClient.connect(
   process.env.DB_URL,
+  { useNewUrlParser: true },
   (err, client) => {
     if (err) return console.log(err);
     db = client.db(process.env.DB_NAME);
