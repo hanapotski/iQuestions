@@ -23,9 +23,13 @@
   "homepage": "https://github.com/hanapotski/iQuestions#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "connect-mongodb-session": "^2.0.3",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "mongodb": "^3.0.10"
+    "express-session": "^1.15.6",
+    "mongodb": "^3.0.10",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
   }
 }
