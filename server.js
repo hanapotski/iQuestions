@@ -1,8 +1,12 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const { MongoClient, ObjectId } = require('mongodb');
-const dotenv = require('dotenv');
+const express = require('express'),
+  app = express(),
+  bodyParser = require('body-parser'),
+  { MongoClient, ObjectId } = require('mongodb'),
+  dotenv = require('dotenv'),
+  passport = require('passport'),
+  localStrategy = require('passport-local'),
+  session = require('express-session'),
+  MongoDBStore = require('connect-mongodb-session');
 
 dotenv.config();
 app.use(bodyParser.json());
@@ -10,10 +14,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
+// database
 let db;
 
 // ROUTES
-
+//==================================================
 // index route
 app.get('/', (req, res) => {
   db.collection(process.env.DB_COLLECTION)
@@ -59,6 +64,7 @@ app.delete('/questions/:id', (req, res) => {
 // catch favicon error
 app.get('/favicon.ico', (req, res) => res.status(204));
 
+// create mongo connection
 MongoClient.connect(
   process.env.DB_URL,
   { useNewUrlParser: true },
