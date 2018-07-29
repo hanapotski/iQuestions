@@ -27,10 +27,9 @@
 
       const config = {
         method: 'delete',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id })
+        headers: { 'Content-Type': 'application/json' }
       };
-      fetch('/questions', config).then(() => {
+      fetch(`/questions/${id}`, config).then(() => {
         for (let q of questions) {
           if (q.parentNode.getAttribute('data-oid') === id) {
             const elToDelete = this.parentNode;
