@@ -12,21 +12,25 @@ app.set('view engine', 'ejs');
 
 let db;
 
+// ROUTES
+
+// index route
 app.get('/', (req, res) => {
   db.collection(process.env.DB_COLLECTION)
     .find()
     .toArray((err, result) => {
       if (err) return console.log(err);
-      res.render('index', { questions: result });
+      res.render('index.ejs', { questions: result });
     });
 });
 
+// questions routes
 app.get('/questions/edit', (req, res) => {
   db.collection(process.env.DB_COLLECTION)
     .find()
     .toArray((err, result) => {
       if (err) return console.log(err);
-      res.render('edit', { questions: result });
+      res.render('edit.ejs', { questions: result });
     });
 });
 
@@ -35,7 +39,7 @@ app.post('/questions', (req, res) => {
     req.body,
     (err, result) => {
       if (err) return console.log(err);
-      res.redirect('/');
+      res.redirect('/questions/edit');
     }
   );
 });
@@ -46,9 +50,9 @@ app.put('/questions/:id', (req, res) => {
     .then(() => res.sendStatus(200));
 });
 
-app.delete('/questions', (req, res) => {
+app.delete('/questions/:id', (req, res) => {
   db.collection(process.env.DB_COLLECTION)
-    .deleteOne({ _id: ObjectId(req.body.id) })
+    .deleteOne({ _id: ObjectId(req.params.id) })
     .then(() => res.sendStatus(200));
 });
 
