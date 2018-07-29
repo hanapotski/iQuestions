@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-// database
+// DATABASE
 let db;
 
 // ROUTES
@@ -64,7 +64,7 @@ app.delete('/questions/:id', (req, res) => {
 // catch favicon error
 app.get('/favicon.ico', (req, res) => res.status(204));
 
-// create mongo connection
+// create mongo connection and store database in db variable
 MongoClient.connect(
   process.env.DB_URL,
   { useNewUrlParser: true },
