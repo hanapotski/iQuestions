@@ -1,6 +1,7 @@
 const express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
+  cookieParser = require('cookie-parser'),
   { MongoClient, ObjectId } = require('mongodb'),
   dotenv = require('dotenv'),
   passport = require('passport'),
