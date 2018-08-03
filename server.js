@@ -17,6 +17,15 @@ app.set('view engine', 'ejs');
 // DATABASE
 let db;
 
+// sessions config
+app.use(passport.initialize());
+app.use(passport.session())
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+
 // ROUTES
 //==================================================
 // index route
@@ -66,7 +75,8 @@ app.get('/favicon.ico', (req, res) => res.status(204));
 
 // create mongo connection and store database in db variable
 MongoClient.connect(
-  process.env.DB_URL,
+  // process.env.DB_URL,
+  'mongodb://localhost/iqauth',
   { useNewUrlParser: true },
   (err, client) => {
     if (err) return console.log(err);
