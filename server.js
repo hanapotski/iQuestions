@@ -6,26 +6,34 @@ const express = require('express'),
   dotenv = require('dotenv'),
   passport = require('passport'),
   localStrategy = require('passport-local'),
+  passportLocalMongoose = require('passport-local-mongoose'),
   session = require('express-session'),
+  User = require('./models/user'),
   MongoDBStore = require('connect-mongodb-session');
 
 dotenv.config();
+mongoose.connect(process.env.DB_URL);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-// DATABASE
-let db;
-
 // sessions config
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
 app.use(passport.initialize());
-app.use(passport.session())
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // ROUTES
 //==================================================
@@ -75,15 +83,15 @@ app.delete('/questions/:id', (req, res) => {
 app.get('/favicon.ico', (req, res) => res.status(204));
 
 // create mongo connection and store database in db variable
-MongoClient.connect(
-  // process.env.DB_URL,
-  'mongodb://localhost/iqauth',
-  { useNewUrlParser: true },
-  (err, client) => {
-    if (err) return console.log(err);
-    db = client.db(process.env.DB_NAME);
-    app.listen(process.env.PORT, () => {
-      console.log('Server is listening on port 3000');
-    });
-  }
-);
+// MongoClient.connect(
+//   // process.env.DB_URL,
+//   'mongodb://localhost/iqauth',
+//   { useNewUrlParser: true },
+//   (err, client) => {
+//     if (err) return console.log(err);
+//     db = client.db(process.env.DB_NAME);
+//     app.listen(process.env.PORT, () => {
+//       console.log('Server is listening on port 3000');
+//     });
+//   }
+// );
