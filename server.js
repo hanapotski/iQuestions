@@ -39,6 +39,14 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// HELPERS
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+};
+
 // ROUTES
 //==================================================
 // index
@@ -83,25 +91,12 @@ app.post('/register', (req, res) => {
   );
 });
 
-// // index route
-// app.get('/', (req, res) => {
-//   db.collection(process.env.DB_COLLECTION)
-//     .find()
-//     .toArray((err, result) => {
-//       if (err) return console.log(err);
-//       res.render('index.ejs', { questions: result });
-//     });
-// });
-
-// // questions routes
-// app.get('/questions/edit', (req, res) => {
-//   db.collection(process.env.DB_COLLECTION)
-//     .find()
-//     .toArray((err, result) => {
-//       if (err) return console.log(err);
-//       res.render('edit.ejs', { questions: result });
-//     });
-// });
+// questions routes
+app.get('/questions/edit', isLoggedIn, (req, res) => {
+  db.questions.find().then(result => {
+    res.render('edit', { questions: result });
+  });
+});
 
 // app.post('/questions', (req, res) => {
 //   db.collection(process.env.DB_COLLECTION).insertOne(
@@ -127,8 +122,6 @@ app.post('/register', (req, res) => {
 
 // // catch favicon error
 // app.get('/favicon.ico', (req, res) => res.status(204));
-
-
 
 app.listen(3000, () => {
   console.log('server listening on port 3000...');
