@@ -3,16 +3,21 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
   { MongoClient, ObjectId } = require('mongodb'),
+  mongoose = require('mongoose'),
   dotenv = require('dotenv'),
   passport = require('passport'),
-  localStrategy = require('passport-local'),
+  LocalStrategy = require('passport-local'),
   passportLocalMongoose = require('passport-local-mongoose'),
   session = require('express-session'),
   User = require('./models/user'),
-  MongoDBStore = require('connect-mongodb-session');
+  MongoDBStore = require('connect-mongodb-session'),
+  db = require('./models');
 
 dotenv.config();
-mongoose.connect(process.env.DB_URL);
+// mongoose.connect(
+//   process.env.DB_URL,
+//   { useNewUrlParser: true }
+// );
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,50 +42,92 @@ passport.deserializeUser(User.deserializeUser());
 
 // ROUTES
 //==================================================
-// index route
+// index
 app.get('/', (req, res) => {
-  db.collection(process.env.DB_COLLECTION)
-    .find()
-    .toArray((err, result) => {
-      if (err) return console.log(err);
-      res.render('index.ejs', { questions: result });
-    });
+  db.questions.find().then(result => {
+    res.render('index', { questions: result });
+  });
 });
 
-// questions routes
-app.get('/questions/edit', (req, res) => {
-  db.collection(process.env.DB_COLLECTION)
-    .find()
-    .toArray((err, result) => {
-      if (err) return console.log(err);
-      res.render('edit.ejs', { questions: result });
-    });
+// login
+app.get('/login', (req, res) => {
+  res.render('login');
 });
 
-app.post('/questions', (req, res) => {
-  db.collection(process.env.DB_COLLECTION).insertOne(
-    req.body,
-    (err, result) => {
-      if (err) return console.log(err);
-      res.redirect('/questions/edit');
+app.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/questions/edit',
+    failureRedirect: '/'
+  })
+);
+
+// register
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.post('/register', (req, res) => {
+  User.register(
+    new User({ username: req.body.username }),
+    req.body.password,
+    (err, user) => {
+      if (err) {
+        console.log(err);
+        return res.render('register');
+      }
+
+      passport.authenticate('local')(req, res, () => {
+        res.redirect('/questions/edit');
+      });
     }
   );
 });
 
-app.put('/questions/:id', (req, res) => {
-  db.collection(process.env.DB_COLLECTION)
-    .updateOne({ _id: ObjectId(req.params.id) }, { $set: req.body })
-    .then(() => res.sendStatus(200));
-});
+// // index route
+// app.get('/', (req, res) => {
+//   db.collection(process.env.DB_COLLECTION)
+//     .find()
+//     .toArray((err, result) => {
+//       if (err) return console.log(err);
+//       res.render('index.ejs', { questions: result });
+//     });
+// });
 
-app.delete('/questions/:id', (req, res) => {
-  db.collection(process.env.DB_COLLECTION)
-    .deleteOne({ _id: ObjectId(req.params.id) })
-    .then(() => res.sendStatus(200));
-});
+// // questions routes
+// app.get('/questions/edit', (req, res) => {
+//   db.collection(process.env.DB_COLLECTION)
+//     .find()
+//     .toArray((err, result) => {
+//       if (err) return console.log(err);
+//       res.render('edit.ejs', { questions: result });
+//     });
+// });
 
-// catch favicon error
-app.get('/favicon.ico', (req, res) => res.status(204));
+// app.post('/questions', (req, res) => {
+//   db.collection(process.env.DB_COLLECTION).insertOne(
+//     req.body,
+//     (err, result) => {
+//       if (err) return console.log(err);
+//       res.redirect('/questions/edit');
+//     }
+//   );
+// });
+
+// app.put('/questions/:id', (req, res) => {
+//   db.collection(process.env.DB_COLLECTION)
+//     .updateOne({ _id: ObjectId(req.params.id) }, { $set: req.body })
+//     .then(() => res.sendStatus(200));
+// });
+
+// app.delete('/questions/:id', (req, res) => {
+//   db.collection(process.env.DB_COLLECTION)
+//     .deleteOne({ _id: ObjectId(req.params.id) })
+//     .then(() => res.sendStatus(200));
+// });
+
+// // catch favicon error
+// app.get('/favicon.ico', (req, res) => res.status(204));
 
 // create mongo connection and store database in db variable
 // MongoClient.connect(
@@ -95,3 +142,6 @@ app.get('/favicon.ico', (req, res) => res.status(204));
 //     });
 //   }
 // );
+app.listen(3000, () => {
+  console.log('server started...');
+});
