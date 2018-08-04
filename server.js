@@ -142,5 +142,5 @@ app.post('/register', (req, res) => {
 //   }
 // );
 app.listen(3000, () => {
-  console.log('server started...');
+  console.log('server listening on port 3000...');
 });
