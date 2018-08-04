@@ -128,19 +128,8 @@ app.post('/register', (req, res) => {
 // // catch favicon error
 // app.get('/favicon.ico', (req, res) => res.status(204));
 
-// create mongo connection and store database in db variable
-// MongoClient.connect(
-//   // process.env.DB_URL,
-//   'mongodb://localhost/iqauth',
-//   { useNewUrlParser: true },
-//   (err, client) => {
-//     if (err) return console.log(err);
-//     db = client.db(process.env.DB_NAME);
-//     app.listen(process.env.PORT, () => {
-//       console.log('Server is listening on port 3000');
-//     });
-//   }
-// );
+
+
 app.listen(3000, () => {
   console.log('server listening on port 3000...');
 });
