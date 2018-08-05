@@ -5,11 +5,16 @@ This is a web application with four API endpoints made using vanilla js, express
 
 TO DO:
 
+- [] Style register and login page
+
+## 8/5/18:
+
+- [x] Fix db bug, new collection
+- [x] Add author to question model
+
 ## 8/4/18:
 
-- [] Style register and login page
-- [] Fix db bug
-- [] Add create and edit route
+- [x] Add create and edit route
 
 ## 8/3/18:
 
