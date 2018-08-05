@@ -118,6 +118,8 @@ app.get('/questions/edit', isLoggedIn, (req, res) => {
 });
 
 app.post('/questions', isLoggedIn, (req, res) => {
+  req.body.author = req.user.username;
+
   Question.create(req.body, (err, question) => {
     if (err) {
       console.log(err);
