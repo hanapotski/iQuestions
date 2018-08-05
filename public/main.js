@@ -26,7 +26,7 @@
       const id = this.parentNode.getAttribute('data-oid');
 
       const config = {
-        method: 'delete',
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' }
       };
       fetch(`/questions/${id}`, config).then(() => {
@@ -56,7 +56,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question })
     };
-    fetch(`questions/${id}`, config).then(() => {
+    fetch(`/questions/${id}`, config).then(() => {
       selectedQuestion.textContent = question;
       currentQuestion.textContent = null;
       window.location.reload();
