@@ -9,14 +9,11 @@ const express = require('express'),
   passportLocalMongoose = require('passport-local-mongoose'),
   session = require('express-session'),
   User = require('./models/user'),
+  Question = require('./models/question'),
   MongoDBStore = require('connect-mongodb-session'),
   db = require('./models');
 
 dotenv.config();
-// mongoose.connect(
-//   process.env.DB_URL,
-//   { useNewUrlParser: true }
-// );
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -92,33 +89,43 @@ app.post('/register', (req, res) => {
 });
 
 // questions routes
+app.put('/questions/:id', (req, res) => {
+  Question.findOneAndUpdate(
+    { _id: mongoose.Types.ObjectId(req.params.id) },
+    req.body,
+    (err, question) => {
+      if (err) {
+        console.log(err);
+      }
+      res.sendStatus(200);
+    }
+  );
+});
+
+app.delete('/questions/:id', (req, res) => {
+  Question.deleteOne({ _id: req.params.id }, err => {
+    if (err) {
+      console.log(err);
+    }
+    res.sendStatus(200);
+  });
+});
+
 app.get('/questions/edit', isLoggedIn, (req, res) => {
   db.questions.find().then(result => {
     res.render('edit', { questions: result });
   });
 });
 
-// app.post('/questions', (req, res) => {
-//   db.collection(process.env.DB_COLLECTION).insertOne(
-//     req.body,
-//     (err, result) => {
-//       if (err) return console.log(err);
-//       res.redirect('/questions/edit');
-//     }
-//   );
-// });
-
-// app.put('/questions/:id', (req, res) => {
-//   db.collection(process.env.DB_COLLECTION)
-//     .updateOne({ _id: ObjectId(req.params.id) }, { $set: req.body })
-//     .then(() => res.sendStatus(200));
-// });
-
-// app.delete('/questions/:id', (req, res) => {
-//   db.collection(process.env.DB_COLLECTION)
-//     .deleteOne({ _id: ObjectId(req.params.id) })
-//     .then(() => res.sendStatus(200));
-// });
+app.post('/questions', isLoggedIn, (req, res) => {
+  Question.create(req.body, (err, question) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(question);
+    res.redirect('/');
+  });
+});
 
 // // catch favicon error
 // app.get('/favicon.ico', (req, res) => res.status(204));
