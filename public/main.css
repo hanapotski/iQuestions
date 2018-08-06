@@ -218,6 +218,11 @@ input {
   margin-bottom: 2em;
 }
 
+.edit {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 @media screen and (min-width: 650px) {
   ul {
     grid-template-columns: repeat(2, 1fr);
