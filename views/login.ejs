@@ -1,9 +1,19 @@
 <% include partials/header %>
 
+
   <form action="/login" method="POST">
+    <h1>Login</h1>
+    <label for="username">Username</label>
     <input type="text" name="username" placeholder="username">
+    <label for="password">Password</label>
     <input type="password" name="password" placeholder="password">
     <button>Login</button>
+    <p>
+      <a href="/register">Register</a>
+    </p>
+    <p>
+      <a href="/">Back to Index</a>
+    </p>
   </form>
 
-<% include partials/footer %>
+  <% include partials/footer %>
