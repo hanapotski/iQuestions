@@ -5,7 +5,12 @@ This is a web application with four API endpoints made using vanilla js, express
 
 TO DO:
 
-- [] Style register and login page
+- [] Add validation
+
+## 8/6/18:
+
+- [x] Style register and login page
+- [x] Add back links
 
 ## 8/5/18:
 
