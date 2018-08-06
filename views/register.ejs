@@ -1,9 +1,15 @@
 <% include partials/header %>
 
   <form action="/register" method="POST">
+    <h1>Register</h1>
+    <label for="username">Username</label>
     <input type="text" name="username" placeholder="username">
+    <label for="password">Password</label>
     <input type="password" name="password" placeholder="password">
     <button>Register</button>
+    <p>
+      <a href="/">Back to Index</a>
+    </p>
   </form>
 
-<% include partials/footer %>
+  <% include partials/footer %>
