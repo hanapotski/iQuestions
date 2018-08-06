@@ -127,14 +127,17 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* ====================================================== */
+/* MAIN CSS ============================================= */
+/* ====================================================== */
 
-/* MAIN CSS */
 body {
   font-family: sans-serif;
 }
 
 .container {
   padding: 20px;
+  margin-top: 2em;
 }
 
 .center {
@@ -162,11 +165,12 @@ button {
   border-radius: 15px;
 }
 
-.editQ {
+a {
   text-decoration: none;
   cursor: pointer;
   text-align: center;
   color: rgb(221, 61, 61);
+  margin-bottom: 2em;
 }
 
 .delete {
@@ -176,12 +180,12 @@ button {
 
 h1 {
   text-align: center;
-  font-size: 2em;
+  font-size: 3em;
   margin: 20px 0 10px 0;
 }
 
 ul {
-  padding-top: 40px;
+  padding-top: 4em;
   display: grid;
   grid-gap: 15px;
 }
@@ -194,6 +198,24 @@ li {
 
 .hidden {
   display: none;
+}
+
+footer {
+  margin-top: 7em;
+  margin-bottom: 5em;
+}
+
+form {
+  text-align: center;
+  margin-top: 15em;
+  margin-bottom: 20em;
+}
+
+input {
+  /* text-align: center; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2em;
 }
 
 @media screen and (min-width: 650px) {
