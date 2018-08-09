@@ -132,6 +132,6 @@ app.post('/questions', isLoggedIn, (req, res) => {
 // // catch favicon error
 app.get('/favicon.ico', (req, res) => res.status(204));
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('server listening on port 3000...');
 });
