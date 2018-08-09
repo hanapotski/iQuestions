@@ -5,8 +5,13 @@ This is a web application with four API endpoints made using vanilla js, express
 
 TO DO:
 
-- [ ] Add validation
 - [ ] Fix heroku error
+
+## 8/9/18:
+
+- [x] Add back to index link on edit page
+- [x] Add validation
+- [x] Use local db as alternative db
 
 ## 8/6/18:
 
