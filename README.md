@@ -5,7 +5,8 @@ This is a web application with four API endpoints made using vanilla js, express
 
 TO DO:
 
-- [] Add validation
+- [ ] Add validation
+- [ ] Fix heroku error
 
 ## 8/6/18:
 
